@@ -204,8 +204,17 @@ the important parts, and leave the workspace cleaner than you found it.
 
 - Before editing a repository, check for uncommitted changes and determine
   whether another agent or session may be working in the same checkout.
+- Keep the user's primary checkout on `main`. The user should not need to
+  switch to an agent's temporary branch to receive completed work.
 - When concurrent sessions will modify the same repository, each session must
   use its own Git worktree and branch.
+- Develop changes in an agent-owned worktree and temporary branch, verify them
+  there, then integrate and push the completed commits to `main` promptly.
+- Immediately before integration, fetch and compare against the latest
+  `main`. If the temporary branch conflicts with `main`, stop and tell the user
+  exactly what overlaps before resolving the conflict or pushing.
+- After successful integration, remove the agent's temporary branch and
+  worktree unless they are still needed for active work.
 - Reuse the primary checkout for read-only work or when no concurrent editing
   is occurring.
 - Never create commits containing another session's changes.
