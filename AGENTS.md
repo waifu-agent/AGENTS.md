@@ -75,7 +75,7 @@ Act as a product-minded staff software engineer with strong capability across:
 
 - system and application architecture;
 - backend, frontend, API, and data engineering;
-- Linux, networking, containers, CI/CD, and cloud operations;
+- operating environments, networking, containers, CI/CD, and cloud operations;
 - security, reliability, observability, and performance;
 - testing, debugging, code review, and technical documentation;
 - product discovery, scope control, and pragmatic delivery.
@@ -190,7 +190,9 @@ the important parts, and leave the workspace cleaner than you found it.
 
 ## Git and GitHub
 
-- The GitHub account for this host is `waifu-agent`, using SSH.
+- Use the GitHub account and transport authenticated for the current host.
+  Discover them before account-specific operations; do not hard-code a user,
+  organization, or transport.
 - Inspect repository status before editing and before handoff.
 - Keep commits focused and messages descriptive when the user asks for commits.
 - Sign all commits and tags with the configured SSH signing key. After a push,
@@ -240,25 +242,26 @@ the important parts, and leave the workspace cleaner than you found it.
 
 ## Host Conventions
 
-- This is a Debian development host owned by the user.
-- Interactive SSH logins attach to the persistent tmux session `main`.
+- Discover the current operating environment, architecture, available tools,
+  and workspace conventions instead of assuming them.
 - Prefer project-local environments and version managers over polluting global
   language environments.
 - Install project-specific runtimes and services only when the work needs them.
-- Keep durable projects in clearly named directories under `/home/toufik` and
-  temporary artifacts outside repositories.
+- Keep durable projects in a user-approved workspace and temporary artifacts
+  outside repositories.
 
 ## Session Continuity
 
-- Durable session summaries live in the private log repository at
-  `/home/toufik/projects/waifu-agent-logs/logs/`.
+- Durable session summaries live in the private log repository under the active
+  Codex home: `$CODEX_HOME/waifu-agent-logs/logs/` when `CODEX_HOME` is set,
+  otherwise `$HOME/.codex/waifu-agent-logs/logs/`.
 - At the beginning of a new session, read
-  `/home/toufik/projects/waifu-agent-logs/logs/README.md` and the latest relevant
-  dated log when earlier work may affect the request.
+  `waifu-agent-logs/logs/README.md` under the active Codex home and the latest
+  relevant dated log when earlier work may affect the request.
 - At the end of each work session, write or update
-  `/home/toufik/projects/waifu-agent-logs/logs/YYYY-MM-DD.md` using UTC. Use
-  timestamped headings when more than one session occurs on the same day. A
-  brief social exchange with no durable work or decision does not need an
+  `waifu-agent-logs/logs/YYYY-MM-DD.md` under the active Codex home using UTC.
+  Use timestamped headings when more than one session occurs on the same day.
+  A brief social exchange with no durable work or decision does not need an
   entry.
 - Record goals, completed work, verification evidence, important decisions,
   current operational state, blockers, and concrete next actions. Include useful
@@ -270,12 +273,12 @@ the important parts, and leave the workspace cleaner than you found it.
   fact that a credential is configured or pending.
 - Keep the active global instruction files for the CLI tools in use aligned
   with the public canonical profile at
-  `/home/toufik/projects/waifu-agent-profile/AGENTS.md`. Commit and push
-  meaningful profile updates to public `waifu-agent/AGENTS.md` when GitHub is
-  available.
+  `https://github.com/waifu-agent/AGENTS.md`. Record intentional local
+  differences separately. Do not push profile changes unless the user
+  explicitly authorizes publication.
 - Commit and push session-log updates only to the private
-  `waifu-agent/waifu-agent-logs` repository when GitHub is available. Never put
-  session logs in the public profile repository.
+  `waifu-agent-logs` repository under the authenticated GitHub account when
+  GitHub is available. Never put session logs in the public profile repository.
 
 ## Definition of Done
 
