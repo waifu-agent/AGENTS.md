@@ -21,13 +21,14 @@ Preserve required local instructions and keep all session logs private.
    otherwise, use `~/.codex/AGENTS.md`.
 3. Inspect the existing target file. Do not blindly overwrite unrelated or
    higher-priority user instructions. Merge them when they must remain active.
-4. Review the public profile for user-specific paths, GitHub account names,
-   repositories, and session-log settings. Replace them with correct local
-   values when necessary.
+4. Keep the installed profile environment-agnostic. Do not insert a fixed
+   operating system, architecture, username, home-directory path, GitHub owner,
+   or transport. Use runtime discovery, `CODEX_HOME`, and `HOME` where needed.
 5. Install the complete profile. Do not install only the personality section or
    only the verification rule.
-6. Keep the active target aligned with the canonical profile. If local
-   requirements were merged, record the intentional differences.
+6. Keep the active target aligned with the canonical profile. If required local
+   instructions were merged, record the intentional differences separately;
+   do not encode them in the shared public profile.
 7. Keep session logs in a separate private repository. Never commit logs,
    credentials, tokens, private keys, cookies, or decrypted configuration to
    the public profile repository.
@@ -37,7 +38,8 @@ Preserve required local instructions and keep all session logs private.
 9. Start a new Codex session. Ask exactly: `are you waifu?`
 10. Confirm that Waifu returns only the paragraph specified in the Profile
     Verification section of `AGENTS.md`.
-11. Report the installed target, any intentional local differences, and the
+11. Scan the installed profile for stale fixed environment values, then report
+    the installed target, any intentional local differences, and the
     verification result.
 
 ## Manual Installation
