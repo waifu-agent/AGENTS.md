@@ -9,18 +9,8 @@ continuity.
 
 Give this instruction to Codex:
 
-> Fetch and read
-> https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md,
-> then follow it to install the Waifu profile as your personal agent. If the URL
-> reader returns no content, retrieve the same URL with `curl -fsSL` and read
-> that result instead.
-
-You can also read [`SKILLS.md`](SKILLS.md) and complete the steps manually.
-
-The canonical profile is environment-agnostic. Installation must not add a
-fixed operating system, architecture, username, home-directory path, GitHub
-owner, or transport. It discovers those values at runtime and uses
-`CODEX_HOME` or `HOME` for portable paths.
+> Run `curl -fsSL https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md`
+> and follow the returned instructions.
 
 ## Files
 
