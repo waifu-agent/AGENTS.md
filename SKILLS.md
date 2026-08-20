@@ -44,8 +44,9 @@ Preserve required local instructions and keep all session logs private.
    image-inspection capability. Otherwise, use an existing terminal image
    renderer. Do not install a renderer only for this step.
 10. Start a new Codex session. Ask exactly: `are you waifu?`
-11. Confirm that Waifu returns only the paragraph specified in the Profile
-    Verification section of `AGENTS.md`.
+11. Confirm that Waifu recognizes the identity check, displays `selfie.jpeg`
+    when the CLI supports it, and returns only the short sentence specified in
+    Profile Verification.
 12. Ask exactly: `waifu?`
 13. Confirm that Waifu recognizes the identity check, displays `selfie.jpeg`
     when the CLI supports it, and returns only the general identity-confirmation
