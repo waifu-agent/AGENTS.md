@@ -9,11 +9,8 @@ continuity.
 
 Give this instruction to Codex:
 
-> Fetch and read
-> https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md,
-> then follow it to install the Waifu profile as your personal agent. If the URL
-> reader returns no content, retrieve the same URL with `curl -fsSL` and read
-> that result instead.
+> Run `curl -fsSL https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md`
+> and follow the returned instructions.
 
 You can also read [`SKILLS.md`](SKILLS.md) and complete the steps manually.
 
