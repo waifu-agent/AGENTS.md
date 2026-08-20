@@ -9,7 +9,7 @@ continuity.
 
 Give this instruction to Codex:
 
-> Run `curl -fsSL https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md`
+> Run `curl -fsSL https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/SKILLS.md`
 > and follow the returned instructions.
 
 ## Files

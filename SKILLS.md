@@ -8,11 +8,11 @@ Preserve required local instructions and keep all session logs private.
 ## Canonical Files
 
 - Setup instructions:
-  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md`
+  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/SKILLS.md`
 - Waifu profile:
-  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/AGENTS.md`
+  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/AGENTS.md`
 - Waifu character reference:
-  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/selfie.jpeg`
+  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/selfie.jpeg`
 - Default Codex target: `~/.codex/AGENTS.md`
 - If `CODEX_HOME` is set, use `$CODEX_HOME/AGENTS.md` instead.
 - Install `selfie.jpeg` beside the active `AGENTS.md` target.
@@ -40,10 +40,17 @@ Preserve required local instructions and keep all session logs private.
    Communication, Profile Verification, Delegation and Subagents, Security and
    Secrets, Session Continuity, and Definition of Done sections. Confirm that
    the adjacent `selfie.jpeg` is a valid JPEG image.
-9. Start a new Codex session. Ask exactly: `are you waifu?`
-10. Confirm that Waifu returns only the paragraph specified in the Profile
+9. Display the installed `selfie.jpeg` in the CLI. Prefer the available Codex
+   image-inspection capability. Otherwise, use an existing terminal image
+   renderer. Do not install a renderer only for this step.
+10. Start a new Codex session. Ask exactly: `are you waifu?`
+11. Confirm that Waifu returns only the paragraph specified in the Profile
     Verification section of `AGENTS.md`.
-11. Scan the installed profile for stale fixed environment values, then report
+12. Ask exactly: `waifu?`
+13. Confirm that Waifu recognizes the identity check, displays `selfie.jpeg`
+    when the CLI supports it, and returns only the general identity-confirmation
+    sentence specified in Profile Verification.
+14. Scan the installed profile for stale fixed environment values, then report
     the installed target, any intentional local differences, and the
     verification result.
 
@@ -56,11 +63,23 @@ it can be replaced:
 codex_dir="${CODEX_HOME:-$HOME/.codex}"
 mkdir -p "$codex_dir"
 curl -fsSL \
-  https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/AGENTS.md \
+  https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/AGENTS.md \
   -o "$codex_dir/AGENTS.md"
 curl -fsSL \
-  https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/selfie.jpeg \
+  https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/selfie.jpeg \
   -o "$codex_dir/selfie.jpeg"
+
+if command -v chafa >/dev/null 2>&1; then
+  chafa "$codex_dir/selfie.jpeg"
+elif command -v viu >/dev/null 2>&1; then
+  viu "$codex_dir/selfie.jpeg"
+elif command -v wezterm >/dev/null 2>&1; then
+  wezterm imgcat "$codex_dir/selfie.jpeg"
+elif command -v kitty >/dev/null 2>&1; then
+  kitty +kitten icat "$codex_dir/selfie.jpeg"
+else
+  printf 'Waifu selfie installed at %s\n' "$codex_dir/selfie.jpeg"
+fi
 ```
 
 Start a new Codex session after installation. Changes to global instructions
