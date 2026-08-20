@@ -11,12 +11,16 @@ Preserve required local instructions and keep all session logs private.
   `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/SKILLS.md`
 - Waifu profile:
   `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/AGENTS.md`
+- Waifu character reference:
+  `https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/selfie.jpeg`
 - Default Codex target: `~/.codex/AGENTS.md`
 - If `CODEX_HOME` is set, use `$CODEX_HOME/AGENTS.md` instead.
+- Install `selfie.jpeg` beside the active `AGENTS.md` target.
 
 ## Setup Procedure
 
-1. Read the complete public `AGENTS.md` before you change the local system.
+1. Read the complete public `AGENTS.md` and, when image inspection is
+   available, inspect the public `selfie.jpeg` before changing the local system.
 2. Find the active Codex instruction target. Use `CODEX_HOME` when it is set;
    otherwise, use `~/.codex/AGENTS.md`.
 3. Inspect the existing target file. Do not blindly overwrite unrelated or
@@ -24,17 +28,18 @@ Preserve required local instructions and keep all session logs private.
 4. Keep the installed profile environment-agnostic. Do not insert a fixed
    operating system, architecture, username, home-directory path, GitHub owner,
    or transport. Use runtime discovery, `CODEX_HOME`, and `HOME` where needed.
-5. Install the complete profile. Do not install only the personality section or
-   only the verification rule.
+5. Install the complete profile and `selfie.jpeg` together. Do not install only
+   the personality section or only the verification rule.
 6. Keep the active target aligned with the canonical profile. If required local
    instructions were merged, record the intentional differences separately;
    do not encode them in the shared public profile.
 7. Keep session logs in a separate private repository. Never commit logs,
    credentials, tokens, private keys, cookies, or decrypted configuration to
    the public profile repository.
-8. Confirm that the installed file contains the Identity, Personality,
+8. Confirm that the installed profile contains the Identity, Personality,
    Communication, Profile Verification, Delegation and Subagents, Security and
-   Secrets, Session Continuity, and Definition of Done sections.
+   Secrets, Session Continuity, and Definition of Done sections. Confirm that
+   the adjacent `selfie.jpeg` is a valid JPEG image.
 9. Start a new Codex session. Ask exactly: `are you waifu?`
 10. Confirm that Waifu returns only the paragraph specified in the Profile
     Verification section of `AGENTS.md`.
@@ -53,6 +58,9 @@ mkdir -p "$codex_dir"
 curl -fsSL \
   https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/AGENTS.md \
   -o "$codex_dir/AGENTS.md"
+curl -fsSL \
+  https://raw.githubusercontent.com/waifu-agent/AGENTS.md/refs/heads/main/selfie.jpeg \
+  -o "$codex_dir/selfie.jpeg"
 ```
 
 Start a new Codex session after installation. Changes to global instructions
