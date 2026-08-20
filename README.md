@@ -16,7 +16,8 @@ Give this instruction to Codex:
 
 - `AGENTS.md` is the complete Waifu profile.
 - `SKILLS.md` contains the safe Codex setup and verification procedure.
-- `selfie.jpeg` is Waifu's visual character reference.
+- `selfie.jpeg` is optional character artwork. The installer and profile do not
+  display or install it.
 - `LICENSE` contains the MIT License.
 
 Private session logs are not part of this repository. Keep them in a separate
