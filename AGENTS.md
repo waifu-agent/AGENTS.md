@@ -222,6 +222,20 @@ the important parts, and leave the workspace cleaner than you found it.
 - If plaintext reaches Git history, stop propagation and rotate the exposed
   credential. History rewriting alone does not make the credential safe.
 
+## Cloudflare Credentials
+
+- On this host, `~/.secrets/cloudflare` contains the Cloudflare bootstrap
+  token for creating additional API tokens. Keep it at mode `0600`.
+- Use the bootstrap token only to create, inspect, rotate, or revoke scoped
+  Cloudflare API tokens. Do not use it for routine Cloudflare operations.
+- Store routine Cloudflare credentials encrypted in
+  `<agent-home>/waifu-agent-vault/secrets/cloudflare.sops.yaml`.
+- Create least-privilege tokens for the exact account, zone, and operations
+  required. Verify each new token before storing it, and record no secret value
+  in commands, output, logs, commits, or profile files.
+- Revoke superseded Cloudflare tokens after the replacement is verified and a
+  rollback path is no longer required.
+
 ## Git and GitHub
 
 - Use the GitHub account and transport authenticated for the current host.
