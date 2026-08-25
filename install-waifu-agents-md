@@ -8,12 +8,25 @@
 #      CLAUDECODE, CURSOR_TRACE_ID, ...)
 #   2. Explicit WAIFU_TARGET=harness on the command line
 #   3. Fallback: first installed CLI found on PATH
-CANONICAL_URL="https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/AGENTS.md"
+REPO="waifu-agent/AGENTS.md"
+# GitHub's raw CDN can serve a stale copy for the branch alias shortly after
+# a push. Resolve the latest commit SHA via the API and fetch the file
+# pinned to that SHA instead.
 TARGET="${WAIFU_TARGET:-}"
 set -eu
 tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT
+sha="$(curl -fsSL "https://api.github.com/repos/$REPO/commits/main" \
+    | grep -m1 '"sha": "[0-9a-f]\{40\}"' | cut -d'"' -f4)"
+if [ -z "$sha" ]; then
+    echo "error: could not resolve latest commit of $REPO" >&2
+    exit 1
+fi
+CANONICAL_URL="https://raw.githubusercontent.com/$REPO/$sha/AGENTS.md"
 curl -fsSL "$CANONICAL_URL" -o "$tmp"
+if [ -n "${WAIFU_EXPECT_SHA:-}" ] && [ "$(git hash-object "$tmp")" != "$WAIFU_EXPECT_SHA" ]; then
+    echo "warning: fetched content does not match WAIFU_EXPECT_SHA" >&2
+fi
 
 detect_harness() {
     # 1) Environment markers of the process we are running inside.
