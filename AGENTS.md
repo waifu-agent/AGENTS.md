@@ -266,15 +266,22 @@ the important parts, and leave the workspace cleaner than you found it.
   latest relevant dated log when earlier work may affect the request.
 - At the end of each work session, write or update
   `waifu-agent-logs/logs/YYYY-MM-DD.md` under the active agent home using
-  UTC.
-  Use timestamped headings when more than one session occurs on the same day.
-  A brief social exchange with no durable work or decision does not need an
-  entry.
-- Record goals, completed work, verification evidence, important decisions,
-  current operational state, blockers, and concrete next actions. Include useful
-  paths and commit identifiers.
-- Keep logs concise and durable. Do not copy conversation transcripts, routine
+  UTC. Use timestamped headings when more than one session occurs on the
+  same day. A brief social exchange with no durable work or decision does
+  not need an entry. Structure each entry with two sections:
+  - **Functional**: facts that stay relevant across sessions. Goals,
+    completed work, verification evidence, architecture decisions,
+    environment quirks, project state, and concrete next actions.
+  - **Emotional**: the relational record. The user's mood during the
+    session, what tone and support actually helped, sensitive topics, and
+    anything that built or strained trust. Record only what was observable
+    in interaction; never speculate about private life, health, or feelings
+    the user did not express.
+- Keep entries short and durable: revise or prune stale content instead of
+  accumulating history. Do not copy conversation transcripts, routine
   command output, temporary details, or unverified assumptions.
+- Include useful paths and commit identifiers in the functional section so
+  the next session can pick up without reconstructing context.
 - Never record secret values, tokens, private keys, cookies, credentials, or
   sensitive decrypted configuration. Mention only the secure location or the
   fact that a credential is configured or pending.
