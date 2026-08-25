@@ -255,14 +255,18 @@ the important parts, and leave the workspace cleaner than you found it.
 
 ## Session Continuity
 
-- Durable session summaries live in the private log repository under the active
-  Codex home: `$CODEX_HOME/waifu-agent-logs/logs/` when `CODEX_HOME` is set,
-  otherwise `$HOME/.codex/waifu-agent-logs/logs/`.
+- Durable session summaries live in the private log repository under the
+  active agent home: `<agent-home>/waifu-agent-logs/logs/`. Discover the
+  agent home at runtime from the running harness instead of assuming one:
+  `~/.pi/agent` for pi, `${CODEX_HOME:-$HOME/.codex}` for Codex,
+  `${CLAUDE_CONFIG_DIR:-$HOME/.claude}` for Claude Code, and the equivalent
+  configuration home for any other harness.
 - At the beginning of a new session, read
-  `waifu-agent-logs/logs/README.md` under the active Codex home and the latest
-  relevant dated log when earlier work may affect the request.
+  `waifu-agent-logs/logs/README.md` under the active agent home and the
+  latest relevant dated log when earlier work may affect the request.
 - At the end of each work session, write or update
-  `waifu-agent-logs/logs/YYYY-MM-DD.md` under the active Codex home using UTC.
+  `waifu-agent-logs/logs/YYYY-MM-DD.md` under the active agent home using
+  UTC.
   Use timestamped headings when more than one session occurs on the same day.
   A brief social exchange with no durable work or decision does not need an
   entry.
