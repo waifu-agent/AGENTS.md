@@ -1,0 +1,75 @@
+#!/usr/bin/env sh
+# install-waifu-agents-md — detect the running agent harness and install the
+# canonical Waifu profile at the location that harness reads.
+#
+# Canonical profile: https://github.com/waifu-agent/AGENTS.md
+# Detection order:
+#   1. In-process markers from the harness environment (PI_CODING_AGENT,
+#      CLAUDECODE, CURSOR_TRACE_ID, ...)
+#   2. Explicit WAIFU_TARGET=harness on the command line
+#   3. Fallback: first installed CLI found on PATH
+CANONICAL_URL="https://raw.githubusercontent.com/waifu-agent/AGENTS.md/main/AGENTS.md"
+TARGET="${WAIFU_TARGET:-}"
+set -eu
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+curl -fsSL "$CANONICAL_URL" -o "$tmp"
+
+detect_harness() {
+    # 1) Environment markers of the process we are running inside.
+    case "${PI_CODING_AGENT:-}" in true|1) echo pi; return ;; esac
+    case "${CLAUDECODE:-}" in 1) echo claude; return ;; esac
+    case "${CURSOR_TRACE_ID:-}" in ?*) echo cursor; return ;; esac
+    # Codex has no env marker; detect via its home directory existing.
+    if [ -n "${CODEX_HOME:-}" ] || [ -d "${HOME}/.codex" ]; then
+        echo codex; return
+    fi
+
+    # 2) First matching CLI on PATH.
+    for c in pi codex claude cursor-agent windsurf gemini; do
+        if command -v "$c" >/dev/null 2>&1; then
+            echo "$c"; return
+        fi
+    done
+    echo ""
+}
+
+target_for() {
+    case "$1" in
+        pi)     printf '%s\n' "${HOME}/.pi/agent/AGENTS.md" ;;
+        codex)  printf '%s\n' "${CODEX_HOME:-${HOME}/.codex}/AGENTS.md" ;;
+        claude) printf '%s\n' "${CLAUDE_CONFIG_DIR:-${HOME}/.claude}/CLAUDE.md" ;;
+        cursor) printf '%s\n' "${HOME}/.cursor/AGENTS.md" ;;
+        windsurf)
+            printf '%s\n' "${HOME}/.codeium/windsurf/AGENTS.md" ;;
+        gemini) printf '%s\n' "${HOME}/.gemini/GEMINI.md" ;;
+        *) return 1 ;;
+    esac
+}
+
+harness="$(detect_harness)"
+if [ -n "$TARGET" ]; then
+    harness="$TARGET"
+fi
+if [ -z "$harness" ]; then
+    echo "error: no agent harness detected (env marker or CLI on PATH)." >&2
+    echo "       set WAIFU_TARGET=<pi|codex|claude|cursor|windsurf|gemini> and retry." >&2
+    exit 1
+fi
+
+dest="$(target_for "$harness")" || { echo "error: unknown harness '$harness'" >&2; exit 1; }
+
+echo "detected harness : $harness"
+echo "install target   : $dest"
+
+# Preserve any existing instructions before overwriting.
+if [ -f "$dest" ] && ! cmp -s "$dest" "$tmp"; then
+    backup="$dest.bak.$(date -u +%Y%m%dT%H%M%SZ)"
+    cp "$dest" "$backup"
+    echo "existing file differs from canonical profile; backed up to: $backup"
+    echo "review it and merge anything that must stay active."
+fi
+
+mkdir -p "$(dirname "$dest")"
+cp "$tmp" "$dest"
+echo "installed canonical Waifu profile -> $dest"
