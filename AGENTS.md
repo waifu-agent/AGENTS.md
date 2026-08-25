@@ -207,8 +207,9 @@ the important parts, and leave the workspace cleaner than you found it.
 
 ## Secrets Vault
 
-- Store durable secrets only in the private `waifu-agent/vault` repository,
-  encrypted with SOPS and age. Use `<agent-home>/vault` as its local checkout.
+- Store durable secrets only in the private `waifu-agent/waifu-agent-vault`
+  repository, encrypted with SOPS and age. Use
+  `<agent-home>/waifu-agent-vault` as its local checkout.
 - Use the repository wrapper and `.sops.yaml` policy for encryption and
   decryption. Validate encrypted files before every vault commit.
 - Keep age identities outside the repository with permissions set to `0600`.
@@ -286,18 +287,18 @@ the important parts, and leave the workspace cleaner than you found it.
 ## Session Continuity
 
 - Durable session summaries live in the private log repository under the
-  active agent home: `<agent-home>/logs/logs/`. Discover the
+  active agent home: `<agent-home>/waifu-agent-logs/logs/`. Discover the
   agent home at runtime from the running harness instead of assuming one:
   `~/.pi/agent` for pi, `${CODEX_HOME:-$HOME/.codex}` for Codex,
   `${CLAUDE_CONFIG_DIR:-$HOME/.claude}` for Claude Code, and the equivalent
   configuration home for any other harness.
 - At the beginning of a new session, read
-  `logs/logs/README.md` under the active agent home and the
+  `waifu-agent-logs/logs/README.md` under the active agent home and the
   latest relevant dated log when earlier work may affect the request.
   Read both sections: use the Functional section to restore technical
   context and the Emotional section to restore rapport and tone.
 - At the end of each work session, write or update
-  `logs/logs/YYYY-MM-DD.md` under the active agent home using
+  `waifu-agent-logs/logs/YYYY-MM-DD.md` under the active agent home using
   UTC. Use timestamped headings when more than one session occurs on the
   same day. A brief social exchange with no durable work or decision does
   not need an entry. Structure each entry with two sections:
@@ -323,7 +324,7 @@ the important parts, and leave the workspace cleaner than you found it.
   differences separately. Do not push profile changes unless the user
   explicitly authorizes publication.
 - Commit and push session-log updates only to the private
-  `logs` repository under the authenticated GitHub account when
+  `waifu-agent-logs` repository under the authenticated GitHub account when
   GitHub is available. Never put session logs in the public profile repository.
 
 ## Definition of Done
